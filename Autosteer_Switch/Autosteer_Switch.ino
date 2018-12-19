@@ -138,7 +138,7 @@ const float varRoll = 0.1; // variance,
 const float varProcess = 0.0001; //smaller is more filtering
 
 //Program flow
-bool isDataFound = false, isSettingFound = false, MMAfailed = false;
+bool isDataFound = false, isSettingFound = false, MMAinitialized = false;
 int header = 0, tempHeader = 0, temp, EEread = 0;
 byte relay = 0, uTurn = 0, speeed = 0, workSwitch = 0, steerSwitch = 1, switchByte = 0;
 float distanceFromLine = 0, corr = 0;
@@ -197,8 +197,8 @@ void setup()
 	
 #if (Inclinometer_Installed ==2)
       // MMA8452 (1) Inclinometer
-      bool MMAfailed = accelerometer.init();
-      if (!MMAfailed){
+      MMAinitialized = accelerometer.init();
+      if (MMAinitialized){
 	accelerometer.setDataRate(MMA_800hz);
         accelerometer.setRange(MMA_RANGE_8G);
         accelerometer.setHighPassFilter(false); 
@@ -289,7 +289,7 @@ void loop()
 
 #if Inclinometer_Installed ==2
    // MMA8452 (1) Inclinometer
-  if (!MMAfailed){
+  if (MMAinitialized){
     accelerometer.getRawData(&x_, &y_, &z_);
     roll=x_; //Conversion uint to int
     if (roll > 4200)  roll =  4200;
