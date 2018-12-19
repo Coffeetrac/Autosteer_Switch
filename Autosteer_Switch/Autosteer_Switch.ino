@@ -386,8 +386,6 @@ void loop()
     transmitSerial();
 #endif
     
-Serial.print("Steerposzero:  ");
-Serial.println(steerSettings.steeringPositionZero);
 	} //end of timed loop
 
   
