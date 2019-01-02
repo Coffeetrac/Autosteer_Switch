@@ -167,10 +167,10 @@ void setup()
 {    
   //keep pulled high and drag low to activate, noise free safe    
   pinMode(WORKSW_PIN, INPUT_PULLUP);   //Pin D4 
-  pinMode(STEERSW_PIN, INPUT_PULLUP);  //Pin 11 
-  pinMode(DIR_PIN, OUTPUT); // direction pin of PWM Board
-  pinMode(PWM_PIN, OUTPUT);
-  pinMode(LED_PIN, OUTPUT);
+  pinMode(STEERSW_PIN, INPUT_PULLUP);  //Pin D3 
+  pinMode(DIR_PIN, OUTPUT);            // direction pin of PWM Board
+  pinMode(PWM_PIN, OUTPUT);            // PWM pin
+  pinMode(LED_PIN, OUTPUT);            // Autosteer LED indicates AS on
  
   pinMode(RELAY1_PIN, OUTPUT); //configure RELAY1 for output
   pinMode(RELAY2_PIN, OUTPUT); //configure RELAY2 for output
@@ -268,33 +268,33 @@ void loop()
 	 *  Process accordingly updating values
 	 */
 
-	currentTime = millis();
-	unsigned int time = currentTime;
+currentTime = millis();
+unsigned int time = currentTime;
 
-	if (currentTime - lastTime >= LOOP_TIME)
-	{
-		dT = currentTime - lastTime;
-		lastTime = currentTime;
+if (currentTime - lastTime >= LOOP_TIME)
+ {
+     dT = currentTime - lastTime;
+     lastTime = currentTime;
 
 #if (IMU_Installed)
-    IMU.readIMU();
+     IMU.readIMU();
 #endif
 
-		//If connection lost to AgOpenGPS, the watchdog will count up and turn off steering
-		if (watchdogTimer++ > 250) watchdogTimer = 12;
+     //If connection lost to AgOpenGPS, the watchdog will count up and turn off steering
+     if (watchdogTimer++ > 250) watchdogTimer = 12;
 
 #if (Inclinometer_Installed ==1)
-    //DOGS2 inclinometer
-		delay(1);
-		analogRead(Dogs2_Roll); //discard
-		delay(1);
-		roll = analogRead(Dogs2_Roll);   delay(1);
-		roll += analogRead(Dogs2_Roll);   delay(1);
-		roll += analogRead(Dogs2_Roll);   delay(1);
-		roll += analogRead(Dogs2_Roll);
-		roll = roll >> 2; //divide by 4
-		//inclinometer goes from -25 to 25 from 0 volts to 5 volts
-    rollK = map(roll, -1023, 1023, -400, 400); //16 counts per degree
+     //DOGS2 inclinometer
+     delay(1);
+     analogRead(Dogs2_Roll); //discard
+     delay(1);
+     roll = analogRead(Dogs2_Roll);   delay(1);
+     roll += analogRead(Dogs2_Roll);   delay(1);
+     roll += analogRead(Dogs2_Roll);   delay(1);
+     roll += analogRead(Dogs2_Roll);
+     roll = roll >> 2; //divide by 4
+     //inclinometer goes from -25 to 25 from 0 volts to 5 volts
+     rollK = map(roll, -1023, 1023, -400, 400); //16 counts per degree
 #endif
 
 #if Inclinometer_Installed ==2
