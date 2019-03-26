@@ -24,6 +24,7 @@
 
   #define Relay_Type 0                  // set to 0 if up to 8 Section Relays will be used
                                         // set to 1 if up to 8 uTurn Relays will be used (only Serial Mode)
+  #define useSteerSwitch 0		// set to 1 if a Steerswitch is installed
   
   //Ethernet Details
   #define EtherNet 0      // 0 = Serial/USB communcation with AOG
@@ -317,7 +318,8 @@ if (currentTime - lastTime >= LOOP_TIME)
     XeRoll = G * (rollK - Zp) + Xp;
 
     workSwitch = digitalRead(WORKSW_PIN);  // read work switch
-    steerSwitch = digitalRead(STEERSW_PIN); //read auto steer enable switch open = 0n closed = Off
+    if (useSteerSwitch) steerSwitch = digitalRead(STEERSW_PIN); //read auto steer enable switch 
+    else steerSwitch = 0; //permanetely On
     switchByte = 0;
     switchByte = steerSwitch << 1; //put steerswitch status in bit 1 position
     switchByte = workSwitch | switchByte;
