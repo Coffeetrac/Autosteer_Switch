@@ -24,7 +24,10 @@
 
   #define Relay_Type 0                  // set to 0 if up to 8 Section Relays will be used
                                         // set to 1 if up to 8 uTurn Relays will be used (only Serial Mode)
-  #define useSteerSwitch 0		// set to 1 if a Steerswitch is installed
+  
+  #define useSteerSwitch 0              // set to 1 if a Steerswitch is installed
+  #define PinMapping 0                  // 0 = default Mapping (like the included Schematics)
+                                        // 1 = PCB (Autosteer with Power Supply)
   
   //Ethernet Details
   #define EtherNet 0      // 0 = Serial/USB communcation with AOG
@@ -35,6 +38,8 @@
   //### End of Setup Zone ####################################################################################
   //##########################################################################################################
 
+// Pin Configuaration
+#if (PinMapping == 0 )  // Default Mapping
   #define STEERSW_PIN 3  //PD3
   #define WORKSW_PIN  4  //PD4
   #define PWM_PIN     5  //PD5  
@@ -51,7 +56,10 @@
   //#define RELAY6_PIN 11  //PB3  serial Mode only
   //#define RELAY7_PIN 12  //PB4  serial Mode only
   //#define RELAY8_PIN 13  //PB5  serial Mode only
-  
+
+#else (PinMapping == 1)
+//...Alternate Mapping here
+#endif
 
   #include <Wire.h>
   #include <EEPROM.h>
