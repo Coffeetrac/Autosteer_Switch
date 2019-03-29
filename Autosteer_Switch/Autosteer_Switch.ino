@@ -62,15 +62,18 @@
   #define STEERSW_PIN 6  //PD6
   #define WORKSW_PIN  8  //PB0
   #define IMP_PIN     7  //PD7
-  #define PWM_PIN     3  //PD3  
+  #define PWM1_PIN    3  //PD3  
   #define DIR_PIN     4  //PD4
+  #define PWM2_PIN    9  //PB1
   #define LED_PIN     5  //PD5 Autosteer LED
   #define W_A_S      A0  //PC0 Wheel Angle Sensor
   #define Dogs2_Roll A1  //PC1 EADOGS2 Inclinometer
   //ethercard 10,11,12,13   
   #define RELAY1_PIN A2  //PC2
   #define RELAY2_PIN A3  //PC3
-  #define RELAY3_PIN 9   //PB1
+  //#define RELAY3_PIN A0  //PC0
+  //#define RELAY4_PIN A1  //PC1
+  
   
 #endif
 
