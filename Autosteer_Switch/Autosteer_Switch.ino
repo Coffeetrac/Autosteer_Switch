@@ -2,7 +2,7 @@
 //### Setup Zone ###########################################################################################
 //##########################################################################################################
   
-  #define Output_Driver 1       // 1 =  Steering Motor + Cytron MD30C Driver
+  #define Output_Driver 2       // 1 =  Steering Motor + Cytron MD30C Driver
                                 // 2 =  Steering Motor + IBT 2  Driver
                                 // 3 =  Steering Motor + JRK 2 Driver (see https://github.com/aortner/jrk)
 
@@ -20,8 +20,8 @@
   #define IMU_Installed 0               // set to 1 to enable BNO055 IMU
   
   #define Inclinometer_Installed 0      // set to 1 if DOGS2 Inclinometer is installed
-                                        // set to 2 if MMA8452 is installed (Address 0x1C)
-                                        // set to 3 if MMA8452 is installed (Address 0x1D) (Sparkfun)
+                                        // set to 2 if MMA8452 is installed (Address 0x1C) (SA0 = Low)
+                                        // set to 3 if MMA8452 is installed (Address 0x1D) (SA0 = High, Sparkfun)
 
   #define Relay_Type 0                  // set to 0 if up to 8 Section Relays will be used
                                         // set to 1 if up to 8 uTurn Relays will be used (only Serial Mode)
@@ -35,6 +35,8 @@
                           // 1 = Ethernet comunication with AOG (using a ENC28J60 chip)
   #define CS_Pin 10       // Arduino Nano= 10 depending how CS of Ethernet Controller ENC28J60 is Connected
 
+  int       maxspeed = 20;   // steering off
+  float    minspeed = 0.2;   // sterring off
   //##########################################################################################################
   //### End of Setup Zone ####################################################################################
   //##########################################################################################################
@@ -168,8 +170,8 @@ const float varProcess = 0.0001; //smaller is more filtering
 //Program flow
 bool isDataFound = false, isSettingFound = false, MMAinitialized = false;
 int header = 0, tempHeader = 0, temp, EEread = 0;
-byte relay = 0, uTurn = 0, speeed = 0, workSwitch = 0, steerSwitch = 1, switchByte = 0;
-float distanceFromLine = 0, corr = 0;
+byte relay = 0, uTurn = 0,  workSwitch = 0, steerSwitch = 1, switchByte = 0;
+float distanceFromLine = 0, corr = 0,speeed = 0;
 
 //steering variables
 float steerAngleActual = 0;
