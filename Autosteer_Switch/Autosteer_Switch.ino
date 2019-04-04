@@ -36,7 +36,7 @@
   #define CS_Pin 10       // Arduino Nano= 10 depending how CS of Ethernet Controller ENC28J60 is Connected
 
   #define   maxspeed  20     // km/h  above -> steering off
-  #define   minspeed  0.2    // km/h  below -> sterring off
+  #define   minspeed  1      // km/h  below -> sterring off (minimum = 0.25)
   //##########################################################################################################
   //### End of Setup Zone ####################################################################################
   //##########################################################################################################
