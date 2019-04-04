@@ -115,7 +115,11 @@
 
 #if Inclinometer_Installed ==2 | Inclinometer_Installed ==3
     #include "MMA8452_AOG.h"  // MMA8452 (1) Inclinometer
-    MMA8452 accelerometer;
+    #if Inclinometer_Installed == 3
+      MMA8452 accelerometer(0x1D);
+    #else
+      MMA8452 accelerometer;
+    #endif
 #endif
 
 #if IMU_Installed
@@ -168,8 +172,8 @@ const float varProcess = 0.0001; //smaller is more filtering
 //Program flow
 bool isDataFound = false, isSettingFound = false, MMAinitialized = false;
 int header = 0, tempHeader = 0, temp, EEread = 0;
-byte relay = 0, uTurn = 0, speeed = 0, workSwitch = 0, steerSwitch = 1, switchByte = 0;
-float distanceFromLine = 0, corr = 0;
+byte relay = 0, uTurn = 0, workSwitch = 0, steerSwitch = 1, switchByte = 0;
+float distanceFromLine = 0, corr = 0, speeed = 0;
 
 //steering variables
 float steerAngleActual = 0;
