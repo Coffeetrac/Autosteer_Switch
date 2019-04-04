@@ -49,7 +49,7 @@ void receiveSerial(){
   {
     isDataFound = false;
     relay = Serial.read();   // read relay control from AgOpenGPS
-    speeed = Serial.read() >> 2;  //actual speed times 4, single byte
+    speeed = Serial.read() * 0.25;  //actual speed times 4, single byte
 
     //distance from the guidance line in mm
     distanceFromLine = (float)(Serial.read() << 8 | Serial.read());   //high,low bytes
@@ -144,7 +144,7 @@ void udpSteerRecv(uint16_t dest_port, uint8_t src_ip[IP_LEN], uint16_t src_port,
     if (data[0] == 0x7F && data[1] == 0xFE) //Data
     {
       relay = data[2];   // read relay control from AgOpenGPS     
-      speeed = data[3] >> 2;  //actual speed times 4, single byte
+      speeed = data[3] * 0.25;  //actual speed times 4, single byte
   
       //distance from the guidance line in mm
       distanceFromLine = (float)(data[4] << 8 | data[5]);   //high,low bytes     
