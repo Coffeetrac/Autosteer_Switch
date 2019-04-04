@@ -20,8 +20,8 @@
   #define IMU_Installed 0               // set to 1 to enable BNO055 IMU
   
   #define Inclinometer_Installed 0      // set to 1 if DOGS2 Inclinometer is installed
-                                        // set to 2 if MMA8452 is installed (Address 0x1C)
-                                        // set to 3 if MMA8452 is installed (Address 0x1D) (Sparkfun)
+                                        // set to 2 if MMA8452 is installed (Address 0x1C) (SA0=LOW)
+                                        // set to 3 if MMA8452 is installed (Address 0x1D) (SA0=HIGH, Sparkfun)
 
   #define Relay_Type 0                  // set to 0 if up to 8 Section Relays will be used
                                         // set to 1 if up to 8 uTurn Relays will be used (only Serial Mode)
@@ -35,6 +35,8 @@
                           // 1 = Ethernet comunication with AOG (using a ENC28J60 chip)
   #define CS_Pin 10       // Arduino Nano= 10 depending how CS of Ethernet Controller ENC28J60 is Connected
 
+  #define   maxspeed  20     // km/h  above -> steering off
+  #define   minspeed  0.2    // km/h  below -> sterring off
   //##########################################################################################################
   //### End of Setup Zone ####################################################################################
   //##########################################################################################################
