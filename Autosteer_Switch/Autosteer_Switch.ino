@@ -24,6 +24,9 @@
   #define Inclinometer_Installed 0      // set to 1 if DOGS2 Inclinometer is installed
                                         // set to 2 if MMA8452 is installed (Address 0x1C) (SA0=LOW)
                                         // set to 3 if MMA8452 is installed (Address 0x1D) (SA0=HIGH, Sparkfun)
+  
+  #define InvertRoll 0                  // Roll to the right must be positive
+                                        // Set to 1 if roll to right shows negative
 
   #define Relay_Type 0                  // set to 0 if up to 8 Section Relays will be used
                                         // set to 1 if up to 8 uTurn Relays will be used (only Serial Mode)
@@ -367,7 +370,12 @@ if (currentTime - lastTime >= LOOP_TIME)
     rollK = map(roll,-4200,4200,-960,960); //16 counts per degree (good for 0 - +/-30 degrees) 
   }
 #endif
+//if not positive when rolling to the right
+#if IsRollToRightNotPositive ==1
+  rollK *= -1.0;
+#endif
 	
+
     //Kalman filter
     Pc = P + varProcess;
     G = Pc / (Pc + varRoll);
