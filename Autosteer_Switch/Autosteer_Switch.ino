@@ -5,6 +5,8 @@
   #define Output_Driver 2       // 1 =  Steering Motor + Cytron MD30C Driver
                                 // 2 =  Steering Motor + IBT 2  Driver
                                 // 3 =  Steering Motor + JRK 2 Driver (see https://github.com/aortner/jrk)
+ 
+  #define Output_Invert 0 // 1 = reverse output direction (Valve & Motor)
 
   #define ADC_Mode 0           //0 = No ADS installed, Wheel Angle Sensor connected directly to Arduino at A0
                                //2 = ADS1115 Differential Mode - Connect Sensor GND to A1, Signal to A0
