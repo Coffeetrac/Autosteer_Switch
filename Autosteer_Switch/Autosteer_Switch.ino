@@ -2,17 +2,17 @@
 //### Setup Zone ###########################################################################################
 //##########################################################################################################
   
-  #define Output_Driver 2       // 1 =  Steering Motor + Cytron MD30C Driver
-                                // 2 =  Steering Motor + IBT 2  Driver
-                                // 3 =  Steering Motor + JRK 2 Driver (see https://github.com/aortner/jrk)
+  #define Output_Driver 2      // 1 =  Steering Motor + Cytron MD30C Driver
+                               // 2 =  Steering Motor + IBT 2  Driver
+                               // 3 =  Steering Motor + JRK 2 Driver (see https://github.com/aortner/jrk)
  
-  #define Output_Invert 0 // 1 = reverse output direction (Valve & Motor)
+  #define Output_Invert 0      // 1 = reverse output direction (Valve & Motor)
 
   #define ADC_Mode 0           //0 = No ADS installed, Wheel Angle Sensor connected directly to Arduino at A0
                                //2 = ADS1115 Differential Mode - Connect Sensor GND to A1, Signal to A0
                                //3 = JRK 2 AD_Input (only for use with JRK 2 Motorcontroller)
   
-  #define SteerPosZero 512    //vary this to get near 0 degrees when wheels are straight forward    
+  #define SteerPosZero 512     //vary this to get near 0 degrees when wheels are straight forward    
                                //with Arduino ADC start with 512 (0-1024)
                                //with ADS start with 6500  (possible Values are 0-13000 Counts)
                                //with JRK 2 use 2046
@@ -148,7 +148,7 @@
   #define Invert_WAS 1
 #endif
 
-#define EEP_Ident 0xEDFD
+#define EEP_Ident 0xEDED
 
  //Variables   
   struct Storage {
@@ -281,7 +281,7 @@ void setup()
 
 	//PWM rate settings Adjust to desired PWM Rate
 	//TCCR1B = TCCR1B & B11111000 | B00000010;    // set timer 1 divisor to     8 for PWM frequency of  3921.16 Hz
-	TCCR1B = TCCR1B & B11111000 | B00000011;    // set timer 1 divisor to    64 for PWM frequency of     490.20 Hz (The DEFAULT)
+	TCCR1B = TCCR1B && B11111000 | B00000011;    // set timer 1 divisor to    64 for PWM frequency of     490.20 Hz (The DEFAULT)
 
 #if (EtherNet)
  if (ether.begin(sizeof Ethernet::buffer, mymac, CS_Pin) == 0)
@@ -302,7 +302,7 @@ void setup()
 #endif
 
 EEPROM.get(0, EEread);               // read identifier
- if (EEread != EEP_Ident){           // check on first start and write EEPROM
+ if (EEread != (int)EEP_Ident){           // check on first start and write EEPROM
     EEPROM.put(0, EEP_Ident);
     EEPROM.put(2, SteerPosZero);
     EEPROM.put(8, steerSettings);   
@@ -332,7 +332,6 @@ void loop()
 	 */
 
 currentTime = millis();
-unsigned int time = currentTime;
 
 if (currentTime - lastTime >= LOOP_TIME)
  {
@@ -371,7 +370,7 @@ if (currentTime - lastTime >= LOOP_TIME)
   }
 #endif
 //if not positive when rolling to the right
- #if InvertRoll ==1
+#if InvertRoll ==1
   rollK *= -1.0;
 #endif
 	
