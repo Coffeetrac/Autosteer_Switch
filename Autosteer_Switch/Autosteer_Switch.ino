@@ -371,7 +371,7 @@ if (currentTime - lastTime >= LOOP_TIME)
   }
 #endif
 //if not positive when rolling to the right
-#if IsRollToRightNotPositive ==1
+ #if InvertRoll ==1
   rollK *= -1.0;
 #endif
 	
