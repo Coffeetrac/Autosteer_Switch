@@ -24,6 +24,7 @@
   #define Inclinometer_Installed 0      // set to 1 if DOGS2 Inclinometer is installed
                                         // set to 2 if MMA8452 is installed (Address 0x1C) (SA0=LOW)
                                         // set to 3 if MMA8452 is installed (Address 0x1D) (SA0=HIGH, Sparkfun)
+                                        // set to 4 if DOGS2 Inlinometer is connected trough ADS1115 Pin A2
   
   #define InvertRoll 0                  // Roll to the right must be positive
                                         // Set to 1 if roll to right shows negative
@@ -369,6 +370,12 @@ if (currentTime - lastTime >= LOOP_TIME)
     rollK = map(roll,-4200,4200,-960,960); //16 counts per degree (good for 0 - +/-30 degrees) 
   }
 #endif
+
+#if (Inclinometer_Installed ==4)
+   rollK = ((ads.readADC_SingleEnded(2))); // 24,000 to 2700
+   rollK = (rollK - 13300)/28;
+#endif
+	
 //if not positive when rolling to the right
 #if InvertRoll ==1
   rollK *= -1.0;
