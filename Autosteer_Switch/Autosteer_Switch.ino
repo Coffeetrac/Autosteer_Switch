@@ -177,7 +177,13 @@ byte serialResetTimer = 0; //if serial buffer is getting full, empty it
 float rollK = 0, Pc = 0.0, G = 0.0, P = 1.0, Xp = 0.0, Zp = 0.0;
 float XeRoll = 0;
 const float varRoll = 0.1; // variance,
-const float varProcess = 0.0001; //smaller is more filtering
+
+#if Inclinometer_Installed ==1 | Inclinometer_Installed ==4
+// DOGS2 Inclinometer
+  const float varProcess = 0.001; //smaller is more filtering ( Dogs signal is already filtered)
+#else
+  const float varProcess = 0.00005; //smaller is more filtering
+#endif
 
 //Program flow
 bool isDataFound = false, isSettingFound = false, MMAinitialized = false;
