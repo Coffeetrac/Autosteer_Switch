@@ -364,6 +364,7 @@ if (currentTime - lastTime >= LOOP_TIME)
      roll = roll >> 2; //divide by 4
      //inclinometer goes from -25 to 25 from 0 volts to 5 volts
      rollK = map(roll, -1023, 1023, -400, 400); //16 counts per degree
+     rollK = map(roll, 100, 923, -400, 400); //16 counts per degree
 #endif
 
 #if Inclinometer_Installed ==2 | Inclinometer_Installed ==3
